@@ -25,7 +25,7 @@ class Main extends Sprite
 		Lib.current.addChild(new Main());
 	}
 	
-	public function new() 
+	public function new()
 	{
 		super();
 		
