@@ -52,7 +52,9 @@ class Enemy extends DisplayEntity {
 
 		_src = Retricon.retricon(text, opts);
 		_dst = _src.clone();
+		#if flash
 		_dst.fillRect(_dst.rect, Palette.color0);
+		#end
 	}
 
 	override public function update():Void {
@@ -79,11 +81,13 @@ class Enemy extends DisplayEntity {
 			_fire();
 		}
 
+		#if flash
 		_elapsedTime += 1.0;
 		if(_elapsedTime >= _interval) {
 			_elapsedTime = 0;
 			_disolveSeed = _dst.pixelDissolve(_src, _src.rect, new Point(0, 0), _disolveSeed, 2);
 		}
+		#end
 
 		_addToCollider();
 	}
