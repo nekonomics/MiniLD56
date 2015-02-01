@@ -3,13 +3,19 @@ package;
 import flash.display.Sprite;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
+import flash.display.Bitmap;
 import flash.events.Event;
 import flash.Lib;
 import flixel.FlxGame;
 import flixel.FlxState;
+import minild56.Canvas;
+import minild56.Controller;
+import minild56.Consts;
+import minild56.Palette;
 
 class Main extends Sprite 
 {
+
 	var gameWidth:Int = 640; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var gameHeight:Int = 480; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var initialState:Class<FlxState> = MenuState; // The FlxState the game starts with.
@@ -19,6 +25,8 @@ class Main extends Sprite
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 	
 	// You can pretty much ignore everything from here on - your code should go in your states.
+
+	private var _controller:Controller;
 	
 	public static function main():Void
 	{	
@@ -63,6 +71,16 @@ class Main extends Sprite
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
 
+
+		Consts.init();
+		Palette.randomize();
+
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
+
+		var ctrl:Controller = Controller.instance.init();
+		ctrl.y = 240 - ctrl.height - 8;
+
+		var canvas:Canvas = Canvas.instance.init(2);
+		addChildAt(canvas.bitmap, 0);
 	}
 }

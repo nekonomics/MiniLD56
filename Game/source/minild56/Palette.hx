@@ -79,7 +79,7 @@ class Palette
 	public static var color3(default, null):UInt = _COLORS[48];
 
 	public static function randomize(seed:Int = -1):Void {
-		if(seed >= 0) { FlxRandom.globalSeed = seed; }
+		FlxRandom.globalSeed = seed == -1 ? Std.int(Date.now().getTime()) : seed;
 		var temp:Array<Int> = [];
 		var len:Int = _COLORS.length;
 		for(i in 0...len) { temp[i] = i; }
@@ -93,5 +93,13 @@ class Palette
 		color1 = _COLORS[temp[1]];
 		color2 = _COLORS[temp[2]];
 		color3 = _COLORS[temp[3]];
+	}
+
+	public static function convertToString(color:UInt):String {
+		var s:String = "";
+		s += StringTools.hex((color >> 16) & 0xff, 2);
+		s += StringTools.hex((color >>  8) & 0xff, 2);
+		s += StringTools.hex(color & 0xff, 2);
+		return s;
 	}
 }
